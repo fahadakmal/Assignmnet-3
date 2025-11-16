@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # Database 1 - North Region
+  postgres-north:
+    image: postgres:16-alpine
+    container_name: postgres-north
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_DB: ecommerce_north
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres-north-data:/var/lib/postgresql/data
+      - ./database/migrations/init-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seeds/seed-north.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dbuser -d ecommerce_north"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Database 2 - South Region
+  postgres-south:
+    image: postgres:16-alpine
+    container_name: postgres-south
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_DB: ecommerce_south
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5436:5432"
+    volumes:
+      - postgres-south-data:/var/lib/postgresql/data
+      - ./database/migrations/init-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seeds/seed-south.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dbuser -d ecommerce_south"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Database 3 - East Region
+  postgres-east:
+    image: postgres:16-alpine
+    container_name: postgres-east
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: dbpass
+      POSTGRES_DB: ecommerce_east
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5437:5432"
+    volumes:
+      - postgres-east-data:/var/lib/postgresql/data
+      - ./database/migrations/init-schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seeds/seed-east.sql:/docker-entrypoint-initdb.d/02-seed.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dbuser -d ecommerce_east"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres-north-data:
+  postgres-south-data:
+  postgres-east-data:
