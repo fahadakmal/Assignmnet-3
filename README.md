@@ -224,32 +224,6 @@ Assignment 3 - Data Intensive/
 └── README.md
 ```
 
----
-
-## Grading Criteria Checklist
-
-- ✅ **3 Points**: Three PostgreSQL databases created
-  - postgres-north (port 5432)
-  - postgres-south (port 5433)
-  - postgres-east (port 5434)
-
-- ✅ **3 Points**: Databases contain correct amount of data
-  - 5 tables per database (categories, products, customers, orders, order_items)
-  - 10+ records per table
-  - 50% replicated data (categories, global products)
-  - 50% fragmented data (regional products, customers, orders)
-
-- ✅ **2 Points**: Database selection functionality
-  - UI allows selecting North/South/East database
-  - Application connects to selected database
-  - Database switching works correctly
-
-- ✅ **2 Points**: Data operations
-  - Print data: Download table data as CSV file (1 point)
-  - Update data: Modify records in selected database (1 point)
-
----
-
 ## Troubleshooting
 
 ### Databases won't start
